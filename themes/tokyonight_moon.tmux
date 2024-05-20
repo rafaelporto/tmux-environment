@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -g status-position top
+
 # TokyoNight colors for Tmux
 
 set -g mode-style "fg=#82aaff,bg=#3b4261"

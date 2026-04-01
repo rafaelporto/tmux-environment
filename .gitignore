@@ -1,0 +1,29 @@
+# TPM plugins (managed by TPM, not committed)
+# tpm itself is tracked as a git submodule
+plugins/*/
+!plugins/tpm/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.fuse_hidden*
+.Trash-*
+.nfs*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Claude Code
+.claude/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo

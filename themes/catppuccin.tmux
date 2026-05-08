@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# Catppuccin Frappé theme configuration
+# Catppuccin Latte theme configuration
 
 set -g @plugin 'catppuccin/tmux#v2.1.3'
 
 # Flavour
-set -g @catppuccin_flavor 'frappe'
+set -g @catppuccin_flavor 'latte'
 
 # Window styling
 set -g @catppuccin_window_status_style 'rounded'

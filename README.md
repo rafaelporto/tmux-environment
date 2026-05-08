@@ -2,6 +2,8 @@
 
 Personal tmux configuration managed with [TPM](https://github.com/tmux-plugins/tpm).
 
+> For a full command and key binding reference: [English](docs/en/tmux-reference.md) · [Português](docs/pt-br/tmux-reference.md)
+
 ## Setup
 
 Clone to any folder you prefer:

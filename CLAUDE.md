@@ -33,7 +33,10 @@ TPM must always be initialized at the **very bottom** of `.tmux.conf`.
 - **Prefix**: `Ctrl-a` (remapped from default `Ctrl-b`)
 - **Reload config**: `prefix + r`
 - **Pane navigation**: `prefix + h/j/k/l` (vim-style)
+- **Clear screen**: `prefix + Ctrl-l` (sends `C-l` to the shell — `Ctrl-l` alone is captured by vim-tmux-navigator for pane navigation)
+- **Clear scrollback**: `prefix + Ctrl-k` (clears the pane's scrollback history; does not affect a running app's context, e.g. Claude Code)
 - **Mode keys**: vi
+- **Mouse**: enabled (`set -g mouse on`) — click to focus panes, drag borders to resize, wheel scrolls scrollback, and forwards the wheel to alternate-screen apps (e.g. Claude Code in fullscreen). To select text in the terminal's own mode, hold `Option`/`Alt` while dragging.
 
 ## Structure
 
@@ -47,6 +50,19 @@ TPM must always be initialized at the **very bottom** of `.tmux.conf`.
 - `catppuccin/tmux#v2.1.3` — active theme (declared inside `themes/catppuccin.tmux`)
 - `tmux-plugins/tpm` — plugin manager (declared in `.tmux.conf`)
 - `christoomey/vim-tmux-navigator` — seamless vim/tmux pane navigation (declared in `.tmux.conf`)
+- `tmux-plugins/tmux-resurrect` — saves/restores sessions (windows, panes, working directories, pane contents)
+- `tmux-plugins/tmux-continuum` — auto-saves every 15 min and auto-restores the last session on tmux startup
+
+## Session Persistence (resurrect / continuum)
+
+Protects against lost work when the tmux server dies (crash, `kill-server`, reboot).
+
+- **Auto-save**: every 15 minutes (`@continuum-save-interval '15'`), silently in the background.
+- **Auto-restore**: happens automatically the next time tmux starts (`@continuum-restore 'on'`) — no action needed.
+- **Manual save**: `prefix + Ctrl-s`
+- **Manual restore**: `prefix + Ctrl-r`
+- Pane scrollback contents are captured (`@resurrect-capture-pane-contents 'on'`).
+- Restoring brings back window/pane layout and working directories; it does **not** restore the internal state of a running program (e.g. an in-progress Claude Code conversation) — only that the pane exists again in the right directory, so you can restart the tool there. `nvim` sessions are the exception (`@resurrect-strategy-nvim 'session'` reopens the last nvim session).
 
 ## Theme Architecture
 

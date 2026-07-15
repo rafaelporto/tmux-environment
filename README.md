@@ -53,12 +53,20 @@ prefix + I
 | `Ctrl-a` | Prefix (remapped from `Ctrl-b`) |
 | `prefix + r` | Reload config |
 | `prefix + h/j/k/l` | Navigate panes (vim-style) |
+| `prefix + Ctrl-l` | Clear screen (`Ctrl-l` alone is used by vim-tmux-navigator) |
+| `prefix + Ctrl-k` | Clear pane scrollback (keeps a running app's context, e.g. Claude Code) |
+| `prefix + Ctrl-s` | Save session (tmux-resurrect) |
+| `prefix + Ctrl-r` | Restore session (tmux-resurrect) |
 
 ## Plugins
 
 - [catppuccin/tmux](https://github.com/catppuccin/tmux) — theme
 - [tmux-plugins/tpm](https://github.com/tmux-plugins/tpm) — plugin manager
 - [christoomey/vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator) — seamless vim/tmux navigation
+- [tmux-plugins/tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) — save/restore sessions (windows, panes, working directories, pane contents)
+- [tmux-plugins/tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) — auto-saves every 15 min and auto-restores the last session on tmux startup
+
+Session persistence protects against lost work when the tmux server dies unexpectedly (crash, `kill-server`, reboot). It restores window/pane layout and working directories, not the internal state of a running program — see the [full reference](docs/en/tmux-reference.md#persist-sessions-across-crashes-and-reboots) for details.
 
 ## Themes
 

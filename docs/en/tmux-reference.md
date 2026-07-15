@@ -133,6 +133,8 @@ This config uses vi keys (`mode-keys vi`).
 | `prefix + t` | Show a clock |
 | `prefix + ~` | Show tmux messages |
 | `prefix + r` | Reload config (this config) |
+| `prefix + Ctrl-l` | Clear screen (this config — sends `C-l` to the shell since `Ctrl-l` is captured by vim-tmux-navigator) |
+| `prefix + Ctrl-k` | Clear pane scrollback (this config — runs `clear-history`; keeps the context of a running app like Claude Code) |
 
 ---
 
@@ -155,23 +157,22 @@ set-option -g mouse on        # Enable mouse at runtime
 
 ## Mouse Support
 
-Mouse is not enabled in this config by default. To enable at runtime:
-
-```
-prefix + :  →  set-option -g mouse on
-```
-
-Or add to `.tmux.conf` permanently:
-
-```bash
-set -g mouse on
-```
+Mouse is **enabled** in this config (`set -g mouse on`).
 
 When enabled:
 - Click a pane to focus it
 - Drag pane borders to resize
 - Click window tabs to switch
-- Scroll to enter copy mode automatically
+- Scroll to enter copy mode automatically (scrollback)
+- Wheel events are forwarded to alternate-screen apps (e.g. Claude Code in fullscreen), so the wheel scrolls *their* content
+
+**Caveat — text selection:** with mouse on, dragging selects into the tmux buffer, so the terminal's native selection / copy is bypassed. To select text in the terminal's own mode, hold `Option`/`Alt` (macOS, iTerm2/Terminal.app) while dragging.
+
+To disable at runtime:
+
+```
+prefix + :  →  set-option -g mouse off
+```
 
 ---
 
@@ -385,16 +386,27 @@ set -g automatic-rename on
 set -g automatic-rename-format '#{b:pane_current_path}'
 ```
 
-### Persist sessions across reboots
+### Persist sessions across crashes and reboots
 
-Use the [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) plugin:
+Active in this config via [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) and [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum):
 
 ```bash
 set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+set -g @resurrect-capture-pane-contents 'on'
+set -g @resurrect-strategy-nvim 'session'
+
+set -g @continuum-restore 'on'
+set -g @continuum-save-interval '15'
 ```
 
-- `prefix + Ctrl-s` — Save session
-- `prefix + Ctrl-r` — Restore session
+- **Auto-save**: continuum saves the full session state every 15 minutes in the background.
+- **Auto-restore**: the last saved state is restored automatically the next time tmux starts — no action needed.
+- `prefix + Ctrl-s` — Save session manually
+- `prefix + Ctrl-r` — Restore session manually
+- Pane scrollback is captured (`@resurrect-capture-pane-contents`). `nvim` sessions are reopened via their own session strategy.
+- Restore brings back windows, panes, and working directories — it does **not** resume the internal state of a running program (e.g. an in-progress Claude Code conversation); the pane reopens in the right directory so you can restart the tool there.
 
 ---
 

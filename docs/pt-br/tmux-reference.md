@@ -104,6 +104,8 @@ tmux source-file ~/.tmux.conf # Recarregar config sem reiniciar
 | `prefix + Alt-5` | Mosaico |
 | `prefix + Space` | Alternar entre layouts |
 
+Para voltar dois painéis lado a lado a uma divisão igual de 50/50, execute `select-layout even-horizontal` no prompt de comando (`even-vertical` se estiverem um acima do outro).
+
 ### Modo de Cópia (vi)
 
 Esta config usa teclas vi (`mode-keys vi`).
@@ -135,6 +137,7 @@ Esta config usa teclas vi (`mode-keys vi`).
 | `prefix + r` | Recarregar config (nesta config) |
 | `prefix + Ctrl-l` | Limpar a tela (nesta config — envia `C-l` ao shell, já que `Ctrl-l` é capturado pelo vim-tmux-navigator) |
 | `prefix + Ctrl-k` | Limpar o scrollback do pane (nesta config — executa `clear-history`; preserva o contexto de uma app em execução, ex. Claude Code) |
+| `prefix + D` | Dividir o pane lado a lado (nesta config — o novo painel à direita fica com 1/3 da largura, o original mantém 2/3) |
 
 ---
 

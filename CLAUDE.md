@@ -35,6 +35,7 @@ TPM must always be initialized at the **very bottom** of `.tmux.conf`.
 - **Pane navigation**: `prefix + h/j/k/l` (vim-style)
 - **Clear screen**: `prefix + Ctrl-l` (sends `C-l` to the shell — `Ctrl-l` alone is captured by vim-tmux-navigator for pane navigation)
 - **Clear scrollback**: `prefix + Ctrl-k` (clears the pane's scrollback history; does not affect a running app's context, e.g. Claude Code)
+- **Split with 1/3–2/3 sizing**: `prefix + D` (splits the current pane side by side; new pane on the right gets 1/3 width, original pane keeps 2/3 — handy for running an editor and Claude Code side by side). To reset two side-by-side panes to 50/50, run `select-layout even-horizontal` from `prefix + :`.
 - **Mode keys**: vi
 - **Mouse**: enabled (`set -g mouse on`) — click to focus panes, drag borders to resize, wheel scrolls scrollback, and forwards the wheel to alternate-screen apps (e.g. Claude Code in fullscreen). To select text in the terminal's own mode, hold `Option`/`Alt` while dragging.
 

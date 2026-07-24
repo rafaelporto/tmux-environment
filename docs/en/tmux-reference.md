@@ -104,6 +104,8 @@ tmux source-file ~/.tmux.conf # Reload config without restarting
 | `prefix + Alt-5` | Tiled |
 | `prefix + Space` | Cycle through layouts |
 
+To restore two side-by-side panes to an even 50/50 split, run `select-layout even-horizontal` from the command prompt (`even-vertical` if they're stacked top/bottom).
+
 ### Copy Mode (vi)
 
 This config uses vi keys (`mode-keys vi`).
@@ -135,6 +137,7 @@ This config uses vi keys (`mode-keys vi`).
 | `prefix + r` | Reload config (this config) |
 | `prefix + Ctrl-l` | Clear screen (this config — sends `C-l` to the shell since `Ctrl-l` is captured by vim-tmux-navigator) |
 | `prefix + Ctrl-k` | Clear pane scrollback (this config — runs `clear-history`; keeps the context of a running app like Claude Code) |
+| `prefix + D` | Split pane side by side (this config — new pane on the right gets 1/3 width, original pane keeps 2/3) |
 
 ---
 

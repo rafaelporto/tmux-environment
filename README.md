@@ -55,6 +55,7 @@ prefix + I
 | `prefix + h/j/k/l` | Navigate panes (vim-style) |
 | `prefix + Ctrl-l` | Clear screen (`Ctrl-l` alone is used by vim-tmux-navigator) |
 | `prefix + Ctrl-k` | Clear pane scrollback (keeps a running app's context, e.g. Claude Code) |
+| `prefix + D` | Split pane side by side, new (right) pane at 1/3 width |
 | `prefix + Ctrl-s` | Save session (tmux-resurrect) |
 | `prefix + Ctrl-r` | Restore session (tmux-resurrect) |
 

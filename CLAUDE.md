@@ -45,6 +45,8 @@ TPM must always be initialized at the **very bottom** of `.tmux.conf`.
 - `themes/` — theme files, one active at a time (others commented out in `.tmux.conf`)
 - `plugins/` — TPM and installed plugins (not committed, managed by TPM)
 - `plugins/tpm` — git submodule
+- `scripts/tty-status.sh` — per-client status bar without Nerd Font glyphs for the Linux console (opt-in)
+- `local.conf` — per-machine options, **gitignored**, sourced right after the theme (`source-file -q`)
 
 ## Active Plugins
 
@@ -102,6 +104,14 @@ set -g @catppuccin_<module>_text "text"
 ```
 
 Example already in use: `set -g @catppuccin_user_text` is not overridden (uses `#(whoami)` default).
+
+## Per-machine options and the Linux console
+
+This repo is shared across machines (macOS and Linux). Anything meant for only some machines must stay inert by default: guard it by OS where applicable and enable it through an option in `local.conf`, never by changing behavior for everyone. `local.conf` must stay gitignored.
+
+- `set -g @tty_ascii on` — `.tmux.conf` then runs `scripts/tty-status.sh` (Linux only), which stores the theme's formats in `@tty-<option>-nerd` / `@tty-<option>-tty` and replaces each with `#{?#{==:#{client_termname},linux},#{E:@tty-<option>-tty},#{E:@tty-<option>-nerd}}`. Console clients get the glyph-free version; others keep the original.
+- Order matters: the script reads what the theme just set, so it runs after the theme `source-file` and before TPM. It skips options that are already wrapped, so `prefix + r` is safe.
+- It only covers manual themes (`tokyonight_*`); plugin-based themes keep glyphs in plugin options the script does not touch.
 
 ## Available Themes
 

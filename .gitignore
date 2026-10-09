@@ -27,3 +27,6 @@ Desktop.ini
 .idea/
 *.swp
 *.swo
+
+# Opcoes por maquina (ex.: set -g @tty_ascii on) — nunca commitar
+local.conf

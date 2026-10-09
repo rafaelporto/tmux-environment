@@ -94,3 +94,19 @@ tmux kill-server && tmux
 |----------|---------|
 | Left | `session` |
 | Right | `application` → `date_time` → `user` |
+
+## Linux console (TTY)
+
+The Linux console (the text VT on a headless machine's monitor, `TERM=linux`) cannot draw Nerd Font glyphs, so the powerline separators of the themes (U+E0B0–U+E0B3) show up as garbage there. `scripts/tty-status.sh` fixes the status bar **per client**: it keeps two versions of `status-left`, `status-right`, `window-status-format` and `window-status-current-format`, and each client gets the one for its terminal (`#{client_termname}`). A session attached from the console and over SSH at the same time shows the plain bar on the console and the original one over SSH.
+
+In the plain version, solid separators are dropped and thin ones become `|`.
+
+It is opt-in per machine and Linux-only. Enable it in `local.conf`, a gitignored file sourced by `.tmux.conf` right after the theme:
+
+```bash
+echo 'set -g @tty_ascii on' >> ~/.config/tmux/local.conf
+```
+
+Then reload with `prefix + r`. Machines without `local.conf` (or with the option off) are unaffected.
+
+> Covers the manual themes (`tokyonight_*`), which write the glyphs straight into the formats. Plugin-based themes (catppuccin, dracula, rose-pine) keep their glyphs in plugin options expanded at render time, which the script does not reach.
